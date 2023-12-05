@@ -1,5 +1,5 @@
 import { redirect } from "next/navigation";
-import { getPageSession } from "../layout";
+import { getPageSession } from "@/lib/getSession";
 
 const Page = async () => {
   const session = await getPageSession();

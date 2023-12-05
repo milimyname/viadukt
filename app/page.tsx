@@ -1,7 +1,7 @@
 import { redirect } from "next/navigation";
 
 import Form from "@/components/form"; // expect error - see next section
-import { getPageSession } from "./layout";
+import { getPageSession } from "@/lib/getSession";
 
 const Page = async () => {
   const session = await getPageSession();
