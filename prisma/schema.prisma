@@ -15,6 +15,7 @@ model User {
 
   auth_session Session[]
   key          Key[]
+  username     String
 }
 
 model Session {
