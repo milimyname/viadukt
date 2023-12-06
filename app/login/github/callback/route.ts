@@ -34,8 +34,6 @@ export const GET = async (request: NextRequest) => {
 
     const user = await getUser();
 
-    console.log({ user });
-
     const session = await auth.createSession({
       userId: user.userId,
       attributes: {},
