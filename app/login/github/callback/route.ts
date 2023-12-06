@@ -23,12 +23,16 @@ export const GET = async (request: NextRequest) => {
 
     const getUser = async () => {
       const existingUser = await getExistingUser();
+
       if (existingUser) return existingUser;
+
       const user = await createUser({
         attributes: {
           username: githubUser.login,
+          avatar_url: githubUser.avatar_url,
         },
       });
+
       return user;
     };
 

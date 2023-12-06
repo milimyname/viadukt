@@ -16,6 +16,7 @@ model User {
   auth_session Session[]
   key          Key[]
   username     String
+  avatar_url   String?
 }
 
 model Session {
