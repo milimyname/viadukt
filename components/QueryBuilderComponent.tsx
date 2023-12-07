@@ -144,24 +144,6 @@ const DemoQueryBuilder = ({ userId }: { userId: string }) => {
         renderBuilder={renderBuilder}
       />
       <div className="query-builder-result overflow-scroll">
-        {/* <div>
-          Query string:{" "}
-          <pre>
-            {JSON.stringify(QbUtils.queryString(state.tree, state.config))}
-          </pre>
-        </div> */}
-        {/* <div>
-          MongoDb query:{" "}
-          <pre>
-            {JSON.stringify(QbUtils.mongodbFormat(state.tree, state.config))}
-          </pre>
-        </div> */}
-        {/* <div>
-          SQL where:{" "}
-          <pre>
-            {JSON.stringify(QbUtils.sqlFormat(state.tree, state.config))}
-          </pre>
-        </div> */}
         <div className=" max-w-md">
           JsonLogic:
           <p>

@@ -13,15 +13,17 @@ import {
 import Form from "@/components/form"; // expect error - see next section
 
 export function AccountDropdown({
-  session,
+  username,
+  avatar_url,
 }: {
-  session: { username: string; url: string };
+  username: string;
+  avatar_url: string;
 }) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger className="cursor-pointer" asChild>
         <Image
-          src={session.url ? session.url : "/profile.jpeg"}
+          src={avatar_url ? avatar_url : "/profile.jpeg"}
           width={30}
           height={30}
           alt="Image Logo"
@@ -31,9 +33,7 @@ export function AccountDropdown({
       <DropdownMenuContent className="w-56 cursor-pointer">
         <DropdownMenuLabel>
           Mein Konto
-          <span className="block font-light  text-gray-400">
-            {session.username}
-          </span>
+          <span className="block font-light  text-gray-400">{username}</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
         <DropdownMenuItem disabled>
