@@ -14,6 +14,7 @@ import {
   Utils as QbUtils,
 } from "@react-awesome-query-builder/antd";
 import { AntdConfig } from "@react-awesome-query-builder/antd";
+import "./custom-group-conjuction.css";
 import "@react-awesome-query-builder/antd/css/styles.css";
 const InitialConfig = AntdConfig;
 
