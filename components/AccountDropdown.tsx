@@ -30,7 +30,7 @@ export function AccountDropdown({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 cursor-pointer">
         <DropdownMenuLabel>
-          My Account
+          Mein Konto
           <span className="block font-light  text-gray-400">
             {session.username}
           </span>
@@ -44,7 +44,7 @@ export function AccountDropdown({
         <DropdownMenuItem>
           <LogOut className="mr-2 h-4 w-4" />
           <Form action="/api/logout">
-            <input type="submit" value="Log out" />
+            <input type="submit" value="Abmelden" />
           </Form>
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
