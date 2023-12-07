@@ -1,10 +1,8 @@
 import { lucia } from "lucia";
 import { prisma } from "@lucia-auth/adapter-prisma";
-import { PrismaClient } from "@prisma/client";
 import { nextjs_future } from "lucia/middleware";
 import { github } from "@lucia-auth/oauth/providers";
-
-const client = new PrismaClient();
+import client from "@/prisma/client";
 
 export const auth = lucia({
   env: process.env.NODE_ENV === "development" ? "DEV" : "PROD",
