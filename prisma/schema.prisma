@@ -17,6 +17,7 @@ model User {
   key          Key[]
   username     String
   avatar_url   String?
+  JsonLogic    JsonLogic[]
 }
 
 model Session {
@@ -34,6 +35,15 @@ model Key {
   hashed_password String?
   user_id         String
   user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model JsonLogic {
+  id      String @id @unique
+  query   Json
+  user_id String
+  user    User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
   @@index([user_id])
 }
