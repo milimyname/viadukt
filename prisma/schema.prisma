@@ -13,11 +13,12 @@ datasource db {
 model User {
   id String @id @unique
 
-  auth_session Session[]
-  key          Key[]
-  username     String
-  avatar_url   String?
-  JsonLogic    JsonLogic[]
+  auth_session  Session[]
+  key           Key[]
+  username      String
+  avatar_url    String?
+  JsonLogic     JsonLogic[]
+  EnergyUpgrade EnergyUpgrade[]
 }
 
 model Session {
@@ -40,10 +41,28 @@ model Key {
 }
 
 model JsonLogic {
-  id      String @id @unique
+  id      Int    @id @default(autoincrement())
   query   Json
+  result  Json
   user_id String
   user    User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
+
+  @@index([user_id])
+}
+
+model EnergyUpgrade {
+  id                       Int      @id @default(autoincrement())
+  selectedUpgrade          String
+  homeSize                 Float
+  currentEnergyConsumption Float
+  energyPrice              Float
+  upgradeCosts             Float
+  energySavingsPercentage  Float
+  incentives               Float?
+  createdAt                DateTime @default(now())
+  updatedAt                DateTime @updatedAt
+  user_id                  String
+  user                     User     @relation(references: [id], fields: [user_id], onDelete: Cascade)
 
   @@index([user_id])
 }

@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import "./globals.css";
 import { cn, fontSans } from "@/lib/utils";
+import { Toaster } from "@/components/ui/toaster";
 
 export const metadata: Metadata = {
   title: "Viadukt",
-  description: "JSON Query Builder",
+  description: "JSON API for calculating the ROI of energy upgrades",
 };
 
 export default async function RootLayout({
@@ -19,7 +20,8 @@ export default async function RootLayout({
           "min-h-screen bg-background font-sans antialiased",
           fontSans.variable
         )}>
-        <main>{children}</main>
+        {children}
+        <Toaster />
       </body>
     </html>
   );
