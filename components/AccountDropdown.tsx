@@ -57,7 +57,7 @@ export function AccountDropdown({
               <div className="grid w-full gap-1.5">
                 <Label htmlFor="json">JSON Example:</Label>
                 <Textarea
-                  placeholder={`{
+                  value={`{
   "home_size": 1200,
   "upgrade_costs": 10000,
   "current_energy_consumption": 15000,
@@ -65,18 +65,18 @@ export function AccountDropdown({
   "energy_savings_percentage": 0.2,
   "incentives": 2000,
   "selected_upgrade": "solar panels",
-  "user_id": "7h5e8kwvtk3tucm"
 }`}
                   id="json"
                   className="resize-none"
                   cols={30}
                   rows={10}
+                  disabled
                 />
               </div>
               <div className="flex flex-col gap-1">
                 <Label htmlFor="response">Response:</Label>
                 <Textarea
-                  placeholder={`{
+                  value={`{
   "totalCost": 12000000,
   "annualSavings": -4320,
   "netCost": 11998000,
@@ -86,6 +86,7 @@ export function AccountDropdown({
                   className="resize-none"
                   cols={30}
                   rows={10}
+                  disabled
                 />
               </div>
             </div>
