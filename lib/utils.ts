@@ -1,7 +1,6 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { Inter as FontSans } from "next/font/google";
-import { type AdditionalOperation, RulesLogic } from "json-logic-js";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -12,7 +11,7 @@ export const fontSans = FontSans({
   variable: "--font-sans",
 });
 
-export const logic: RulesLogic<AdditionalOperation> = [
+export const logic = [
   {
     "*": [{ var: "upgrade_costs" }, { var: "home_size" }],
   },

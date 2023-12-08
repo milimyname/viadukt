@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
 
   try {
     // Calculate the energy savings by using the json-logic-js library
+    //@ts-ignore
     const result = jsonLogic.apply(logic, {
       selected_upgrade: body.selected_upgrade,
       home_size: body.home_size,
