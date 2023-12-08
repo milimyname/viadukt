@@ -1,7 +1,7 @@
 import jsonLogic from "json-logic-js";
 import type { NextRequest } from "next/server";
 import { formSchema } from "@/lib/validationSchema";
-import { logic } from "../calculation/route";
+import { logic } from "@/lib/utils";
 
 export async function POST(request: NextRequest) {
   const body = await request.json();

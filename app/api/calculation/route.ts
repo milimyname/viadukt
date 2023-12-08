@@ -1,71 +1,12 @@
-import jsonLogic, { type AdditionalOperation, RulesLogic } from "json-logic-js";
+import jsonLogic from "json-logic-js";
 import type { NextRequest } from "next/server";
 import { formSchema } from "@/lib/validationSchema";
 import prisma from "@/prisma/client";
+import { logic } from "@/lib/utils";
 
 export async function GET(request: NextRequest) {
   return Response.json({ message: "Hello from Next.js!" });
 }
-
-export const logic: RulesLogic<AdditionalOperation> = [
-  {
-    "*": [{ var: "upgrade_costs" }, { var: "home_size" }],
-  },
-  {
-    "*": [
-      {
-        "*": [
-          { var: "current_energy_consumption" },
-          {
-            if: [
-              { "==": [{ var: "selected_upgrade" }, "insulation"] },
-              { "-": [{ var: "energy_savings_percentage" }, 0.1] },
-              { "==": [{ var: "selected_upgrade" }, "hvac"] },
-              { "-": [{ var: "energy_savings_percentage" }, 0.2] },
-              { "==": [{ var: "selected_upgrade" }, "solar panels"] },
-              { "-": [{ var: "energy_savings_percentage" }, 0.4] },
-              { var: "energy_savings_percentage" },
-            ],
-          },
-        ],
-      },
-      { var: "energy_price" },
-      12,
-    ],
-  },
-  {
-    "-": [
-      { "*": [{ var: "upgrade_costs" }, { var: "home_size" }] },
-      { var: "incentives" },
-    ],
-  },
-  {
-    "/": [
-      {
-        "-": [
-          { "*": [{ var: "upgrade_costs" }, { var: "home_size" }] },
-          { var: "incentives" },
-        ],
-      },
-      {
-        "*": [
-          {
-            "*": [
-              {
-                "*": [
-                  { var: "current_energy_consumption" },
-                  { var: "energy_savings_percentage" },
-                ],
-              },
-              { var: "energy_price" },
-            ],
-          },
-          12,
-        ],
-      },
-    ],
-  },
-];
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
