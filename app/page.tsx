@@ -13,7 +13,7 @@ const Page = async () => {
         username={session.user.username}
         avatar_url={session.user.avatar_url}
       />
-      <main className="max-w-md mx-auto py-10 ">
+      <main className="py-10 flex w-full justify-center gap-20">
         <CalculationForm userId={session.user.userId} />
       </main>
     </>
