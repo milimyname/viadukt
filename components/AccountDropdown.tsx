@@ -10,7 +10,7 @@ import {
   DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Form from "@/components/CalculationForm"; // expect error - see next section
+import Logoutform from "@/components/LogoutForm";
 
 export function AccountDropdown({
   username,
@@ -32,7 +32,7 @@ export function AccountDropdown({
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56 cursor-pointer">
         <DropdownMenuLabel>
-          Mein Konto
+          Account
           <span className="block font-light  text-gray-400">{username}</span>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
@@ -43,9 +43,9 @@ export function AccountDropdown({
         <DropdownMenuSeparator />
         <DropdownMenuItem>
           <LogOut className="mr-2 h-4 w-4" />
-          <Form action="/api/logout">
+          <Logoutform action="/api/logout">
             <input type="submit" value="Abmelden" />
-          </Form>
+          </Logoutform>
           <DropdownMenuShortcut>⇧⌘Q</DropdownMenuShortcut>
         </DropdownMenuItem>
       </DropdownMenuContent>

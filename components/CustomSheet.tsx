@@ -14,13 +14,15 @@ export function CustomSheet() {
   return (
     <Sheet>
       <SheetTrigger asChild>
-        <Button variant="outline">Alle Berechnungen</Button>
+        <Button variant="outline" disabled>
+          Calculations soon...
+        </Button>
       </SheetTrigger>
       <SheetContent side="left">
         <SheetHeader>
           <SheetTitle>Kalkulation auswählen</SheetTitle>
           <SheetDescription>
-            Wähle eine Kalkulation aus, um sie zu bearbeiten.
+            Find out how much you can save with our calculator.
           </SheetDescription>
         </SheetHeader>
       </SheetContent>

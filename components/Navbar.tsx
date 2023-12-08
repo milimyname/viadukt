@@ -10,10 +10,10 @@ const Navbar = ({
   avatar_url: string;
 }) => {
   const links = [
-    { href: "/", label: "Überblick" },
-    { href: "/", label: "Produkte" },
-    { href: "/", label: "Einstellungen" },
-    { href: "/", label: "Über Uns" },
+    { href: "/", label: "Overview" },
+    { href: "/", label: "Products" },
+    { href: "/", label: "Settings" },
+    { href: "/", label: "About us" },
   ];
 
   return (
