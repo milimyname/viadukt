@@ -15,7 +15,7 @@ export function CustomSheet() {
     <Sheet>
       <SheetTrigger asChild>
         <Button variant="outline" disabled>
-          Calculations soon...
+          Add calculation
         </Button>
       </SheetTrigger>
       <SheetContent side="left">
