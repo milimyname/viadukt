@@ -1,9 +1,9 @@
-# fly.toml app configuration file generated for viadukt on 2023-12-05T22:45:10+01:00
+# fly.toml app configuration file generated for viadukt-wild-glitter-283 on 2023-12-10T21:50:32+01:00
 #
 # See https://fly.io/docs/reference/configuration/ for information about how to use this file.
 #
 
-app = "viadukt"
+app = "viadukt-wild-glitter-283"
 primary_region = "ams"
 
 [build]
@@ -19,4 +19,4 @@ primary_region = "ams"
 [[vm]]
   cpu_kind = "shared"
   cpus = 1
-  memory_mb = 1024
+  memory_mb = 512
