@@ -10,7 +10,7 @@ import {
 import prisma from "@/prisma/client";
 import Link from "next/link";
 
-export async function CustomSheet({ userId }: { userId: string }) {
+export async function CustomSheet({ userId }: { userId: string | undefined }) {
   // Get all calculations from the database
   const calculations = await prisma.calculation.findMany({
     where: {
