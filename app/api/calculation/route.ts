@@ -1,6 +1,6 @@
 import jsonLogic from "json-logic-js";
 import type { NextRequest } from "next/server";
-import { formSchema } from "@/lib/validationSchema";
+import { calculationSchema } from "@/lib/validationSchema";
 import prisma from "@/prisma/client";
 import { logic } from "@/lib/utils";
 
@@ -10,7 +10,7 @@ export async function GET(request: NextRequest) {
 
 export async function POST(request: NextRequest) {
   const body = await request.json();
-  const validation = formSchema.safeParse(body);
+  const validation = calculationSchema.safeParse(body);
 
   // Check that the request has the required parameters
   if (!validation.success) {

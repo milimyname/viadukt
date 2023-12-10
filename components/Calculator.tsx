@@ -31,6 +31,7 @@ const Calculator = () => {
     A: [],
     B: [],
   });
+
   const [selectedOperator, setSelectedOperator] = useState<string>("+");
   const items = useCostBlockStore((state) => state.items);
   const removeAll = useCostBlockStore((state) => state.removeAll);
@@ -119,6 +120,8 @@ const Calculator = () => {
 
     const newResult = result.toFixed(2) as unknown as number;
 
+    console.log({ items, containerItems, selectedOperator, result });
+
     setResult(newResult);
   }, [containerItems, selectedOperator, items]);
 
@@ -131,7 +134,7 @@ const Calculator = () => {
           <>
             <div className="flex flex-col flex-1  w-full   rounded-lg bg-slate-300 ">
               <h3 className="text-4xl font-bold bg-slate-400 text-white text-right rounded-t-lg p-5">
-                ${result}
+                {result}
               </h3>
 
               <DndContext onDragEnd={handleDragEnd}>

@@ -24,7 +24,7 @@ function Draggable(props: {
       {...attributes}
       className="flex flex-col h-fit items-end ">
       <span className="text-sm px-2 ">{props.name}</span>
-      <span className="text-lg font-bold px-2  self-start">${props.value}</span>
+      <span className="text-lg font-bold px-2  self-start">{props.value}</span>
     </Button>
   );
 }

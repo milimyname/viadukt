@@ -42,12 +42,13 @@ const CostBlockForm = () => {
   const addItem = useCostBlockStore((state) => state.add);
   const items = useCostBlockStore((state) => state.items);
 
-  async function onSubmitNewParamater(values: z.infer<typeof costBlockSchema>) {
-    // Add to paramters array
-    values.id = Math.random().toString(36).substr(2, 9);
+  async function onSubmit(values: z.infer<typeof costBlockSchema>) {
     // Add to store
+    values.id = Math.random().toString(36).substr(2, 9);
+
     addItem(values);
 
+    // Reset form
     setDialogForm(false);
     form.reset();
   }
@@ -70,7 +71,7 @@ const CostBlockForm = () => {
 
             <Form {...form}>
               <form
-                onSubmit={form.handleSubmit(onSubmitNewParamater)}
+                onSubmit={form.handleSubmit(onSubmit)}
                 className="space-y-8 w-96 mx-auto">
                 <FormField
                   control={form.control}

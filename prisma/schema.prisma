@@ -1,6 +1,3 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -12,14 +9,12 @@ datasource db {
 }
 
 model User {
-  id String @id @unique
-
-  auth_session  Session[]
-  key           Key[]
-  username      String
-  avatar_url    String?
-  JsonLogic     JsonLogic[]
-  EnergyUpgrade EnergyUpgrade[]
+  id           String        @id @unique
+  username     String
+  avatar_url   String?
+  calculation  Calculation[]
+  key          Key[]
+  auth_session Session[]
 }
 
 model Session {
@@ -27,7 +22,7 @@ model Session {
   user_id        String
   active_expires BigInt
   idle_expires   BigInt
-  user           User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  user           User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
 }
@@ -36,34 +31,33 @@ model Key {
   id              String  @id @unique
   hashed_password String?
   user_id         String
-  user            User    @relation(references: [id], fields: [user_id], onDelete: Cascade)
+  user            User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
 }
 
-model JsonLogic {
-  id      Int    @id @default(autoincrement())
-  query   Json
-  result  Json
-  user_id String
-  user    User   @relation(references: [id], fields: [user_id], onDelete: Cascade)
-
-  @@index([user_id])
+model CostBlock {
+  id             Int         @id @default(autoincrement())
+  name           String
+  description    String
+  value          Float
+  createdAt      DateTime    @default(now())
+  updatedAt      DateTime    @updatedAt
+  calculation_id Int
+  calculation    Calculation @relation(fields: [calculation_id], references: [id], onDelete: Cascade)
 }
 
-model EnergyUpgrade {
-  id                       Int      @id @default(autoincrement())
-  selectedUpgrade          String
-  homeSize                 Float
-  currentEnergyConsumption Float
-  energyPrice              Float
-  upgradeCosts             Float
-  energySavingsPercentage  Float
-  incentives               Float?
-  createdAt                DateTime @default(now())
-  updatedAt                DateTime @updatedAt
-  user_id                  String
-  user                     User     @relation(references: [id], fields: [user_id], onDelete: Cascade)
+model Calculation {
+  id               Int         @id @default(autoincrement())
+  name             String
+  result           Float
+  selectedOperator String
+  createdAt        DateTime    @default(now())
+  updatedAt        DateTime    @updatedAt
+  user_id          String
+  type             String
+  user             User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
+  costBlocks       CostBlock[]
 
   @@index([user_id])
 }
