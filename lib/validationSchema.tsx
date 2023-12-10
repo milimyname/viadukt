@@ -9,3 +9,10 @@ export const formSchema = z.object({
   energy_savings_percentage: z.number().min(1).multipleOf(0.01),
   incentives: z.number().multipleOf(0.01).optional(),
 });
+
+export const costBlockSchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  value: z.number().min(1).multipleOf(0.01),
+  id: z.string().optional(),
+});
