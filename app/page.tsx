@@ -3,7 +3,6 @@ import { redirect } from "next/navigation";
 import Navbar from "@/components/Navbar";
 import CalculationForm from "@/components/CalculationForm";
 import Calculator from "@/components/Calculator";
-import Test from "@/components/Test";
 
 const Page = async () => {
   const session = await getPageSession();
@@ -19,7 +18,6 @@ const Page = async () => {
         {/* <CalculationForm userId={session.user.userId} /> */}
 
         <Calculator />
-        {/* <Test /> */}
       </main>
     </>
   );

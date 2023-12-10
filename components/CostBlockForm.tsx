@@ -31,6 +31,12 @@ const CostBlockForm = () => {
   const [dialogForm, setDialogForm] = useState(false);
   const form = useForm<z.infer<typeof costBlockSchema>>({
     resolver: zodResolver(costBlockSchema),
+    defaultValues: {
+      name: "",
+      value: 0,
+      description: "",
+      id: "",
+    },
   });
 
   const addItem = useCostBlockStore((state) => state.add);

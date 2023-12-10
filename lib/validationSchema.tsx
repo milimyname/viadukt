@@ -14,5 +14,5 @@ export const costBlockSchema = z.object({
   name: z.string(),
   description: z.string().optional(),
   value: z.number().min(1).multipleOf(0.01),
-  id: z.string().optional(),
+  id: z.string(),
 });

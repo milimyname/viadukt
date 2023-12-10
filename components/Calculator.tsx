@@ -143,6 +143,7 @@ const Calculator = () => {
 
                   {items.map((item) => {
                     // Display the item if it is not in any container
+
                     const isInAnyContainer = Object.values(containerItems).some(
                       (container) => container.includes(item.id)
                     );
