@@ -79,3 +79,19 @@ export async function PATCH(request: NextRequest) {
     return Response.json({ message: c }, { status: 500 });
   }
 }
+
+export async function DELETE(request: NextRequest) {
+  try {
+    const body = await request.json();
+
+    await prisma.calculation.delete({
+      where: {
+        id: body.calculationId,
+      },
+    });
+
+    return Response.json({ message: "success" });
+  } catch (c) {
+    return Response.json({ message: c }, { status: 500 });
+  }
+}

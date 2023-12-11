@@ -9,6 +9,7 @@ import {
 } from "@/components/ui/sheet";
 import prisma from "@/prisma/client";
 import Link from "next/link";
+import DeleteCalculationForm from "@/components/DeleteCalculationForm";
 
 export async function CustomSheet({ userId }: { userId: string | undefined }) {
   // Get all calculations from the database
@@ -34,10 +35,12 @@ export async function CustomSheet({ userId }: { userId: string | undefined }) {
           {calculations.length > 0
             ? calculations.map((calculation) => (
                 <Link
-                  className="text-gray-600 hover:text-gray-600"
+                  className="text-gray-600 hover:text-gray-600 flex justify-between"
                   key={calculation.id}
                   href={`/calculation/${calculation.id}`}>
                   {calculation.name}
+
+                  <DeleteCalculationForm calculationId={calculation.id} />
                 </Link>
               ))
             : "No calculations yet"}

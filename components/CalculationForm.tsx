@@ -53,7 +53,7 @@ function CalculationForm({ userId }: { userId: string }) {
 
   const { toast } = useToast();
   const [dialogForm, setDialogForm] = useState(false);
-  const router = useRouter(); // Use useRouter here
+  const router = useRouter();
 
   // 2. Define a submit handler.
   async function onSubmitCalculation(
