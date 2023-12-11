@@ -13,19 +13,6 @@ export async function POST(request: NextRequest) {
     });
   }
 
-  const costBlocks = [
-    {
-      name: "",
-      value: 0,
-      description: "",
-    },
-    {
-      name: "",
-      value: 0,
-      description: "",
-    },
-  ];
-
   try {
     const calculation = await prisma.calculation.create({
       data: {
@@ -35,9 +22,6 @@ export async function POST(request: NextRequest) {
         name: body.name,
         type: body.type,
         schema: body.schema,
-        costBlocks: {
-          create: costBlocks,
-        },
       },
     });
 
@@ -50,22 +34,41 @@ export async function POST(request: NextRequest) {
 }
 
 export async function PATCH(request: NextRequest) {
-  const body = await request.json();
-
-  console.log(body);
-
   try {
+    const body = await request.json();
+    const costBlocks = JSON.parse(body.costBlocks);
+
+    if (costBlocks[0])
+      await prisma.costBlock.update({
+        where: {
+          id: costBlocks[0].id,
+        },
+        data: {
+          name: costBlocks[0].name,
+          description: costBlocks[0].description,
+          value: costBlocks[0].value,
+        },
+      });
+
+    if (costBlocks[1])
+      await prisma.costBlock.update({
+        where: {
+          id: costBlocks[1].id,
+        },
+        data: {
+          name: costBlocks[1].name,
+          description: costBlocks[1].description,
+          value: costBlocks[1].value,
+        },
+      });
+
     const calculation = await prisma.calculation.update({
       where: {
         id: body.id,
       },
       data: {
         selectedOperator: body.selectedOperator,
-        result: body.result,
         schema: body.schema,
-        costBlocks: {
-          update: body.costBlocks,
-        },
       },
     });
 

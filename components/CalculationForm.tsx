@@ -47,7 +47,7 @@ function CalculationForm({ userId }: { userId: string }) {
         A: [],
         B: [],
       }),
-      id: 1,
+      id: "1",
     },
   });
 

@@ -26,23 +26,25 @@ interface ContainerItems {
 
 const operators = ["+", "-", "*", "/"];
 
-const Calculator = ({
-  calculation,
-}: {
-  calculation: z.infer<typeof calculationSchema>;
-}) => {
-  const containers = ["A", "-", "B"];
+const Calculator = ({ calculation }: { calculation: any }) => {
+  const containers = calculation.type.split(" ") as string[];
   const [parent, setParent] = useState(null);
-  const [containerItems, setContainerItems] = useState<ContainerItems>({
-    A: [],
-    B: [],
-  });
+  const [containerItems, setContainerItems] = useState<ContainerItems>(
+    JSON.parse(calculation.schema)
+  );
 
   const [selectedOperator, setSelectedOperator] = useState<string>("+");
   const [saving, setSaving] = useState(false);
 
   const items = useCostBlockStore((state) => state.items);
   const removeAll = useCostBlockStore((state) => state.removeAll);
+  const setAll = useCostBlockStore((state) => state.setAll);
+
+  // Initial state
+
+  useEffect(() => {
+    setAll(calculation.costBlocks);
+  }, [calculation, setAll]);
 
   const [result, setResult] = useState(0);
 
@@ -89,11 +91,15 @@ const Calculator = ({
     setSelectedOperator(operator);
   };
 
-  const handleRemoveAll = () => {
+  const handleRemoveAll = async () => {
     removeAll();
     setContainerItems({ A: [], B: [] });
     setSelectedOperator("+");
     setResult(0);
+
+    await fetch("/api/costblock", {
+      method: "DELETE",
+    });
   };
 
   const handleSave = () => {
@@ -104,40 +110,20 @@ const Calculator = ({
     // Simulate a saving process with a delay
     setTimeout(async () => {
       // Perform actual save logic here
-
-      // Remove ids from items and use from calculation schema
-      // const itemsWithoutId = items.map((item) => {
-      //   const { id, ...rest } = item;
-      //   return rest;
-      // });
-
-      // const itemsWithoutId = items.map((item) => {
-      //   calculation?.costBlocks.forEach((costBloc) => {
-      //     item.id = costBloc.id;
-      //     item.name = item.name;
-      //     item.value = item.value;
-      //     item.description = item.description;
-      //   });
-
-      //   return rest;
-      // });
-
-      // try {
-      //   const res = await fetch("/api/calc", {
-      //     method: "PATCH",
-      //     body: JSON.stringify({
-      //       id: calculation.id,
-      //       schema: JSON.stringify(containerItems),
-      //       selectedOperator,
-      //       costBlocks: JSON.stringify(itemsWithoutId),
-      //       result: +result,
-      //     }),
-      //   });
-      //   const data = await res.json();
-      //   console.log(data);
-      // } catch (e) {
-      //   console.log(e);
-      // }
+      try {
+        await fetch("/api/calc", {
+          method: "PATCH",
+          body: JSON.stringify({
+            id: calculation.id,
+            schema: JSON.stringify(containerItems),
+            selectedOperator,
+            costBlocks: JSON.stringify(items),
+            result: result,
+          }),
+        });
+      } catch (e) {
+        console.log(e);
+      }
       // After saving is done, set `saving` to false
       setSaving(false);
     }, 2000); // 2 seconds delay
@@ -186,7 +172,7 @@ const Calculator = ({
   return (
     <>
       <section className="flex flex-col gap-10 max-w-4xl">
-        <CostBlockForm />
+        <CostBlockForm calculationId={calculation.id} />
 
         {items.length > 0 && (
           <>

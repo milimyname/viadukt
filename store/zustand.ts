@@ -12,6 +12,7 @@ type CostBlockStore = {
   add: (item: z.infer<typeof costBlockSchema>) => void;
   remove: (itemName: string) => void;
   removeAll: () => void;
+  setAll: (items: z.infer<typeof costBlockSchema>[]) => void;
 };
 
 export const useCostBlockStore = create<CostBlockStore>((set) => ({
@@ -22,4 +23,5 @@ export const useCostBlockStore = create<CostBlockStore>((set) => ({
       items: state.items.filter((item) => item.name !== itemName),
     })),
   removeAll: () => set({ items: [] }),
+  setAll: (items) => set({ items }),
 }));

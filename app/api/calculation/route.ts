@@ -8,14 +8,22 @@ export async function GET(request: NextRequest) {
   return Response.json({ message: "Hello from Next.js!" });
 }
 
+interface DataObject {
+  [key: string]: string;
+}
+
 export async function POST(request: NextRequest) {
   const body = await request.json();
 
   // Convert body data to an object
-  const data = body.data.reduce((acc, cur) => {
-    acc[cur.name] = cur.value;
-    return acc;
-  }, {});
+
+  const data = body.data.reduce(
+    (acc: DataObject, cur: { name: string; value: string }) => {
+      acc[cur.name] = cur.value;
+      return acc;
+    },
+    {} as DataObject
+  );
 
   try {
     // Calculate the energy savings by using the json-logic-js library

@@ -26,8 +26,10 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { costBlockSchema } from "@/lib/validationSchema";
 import { useCostBlockStore } from "@/store/zustand";
+import { useToast } from "@/components/ui/use-toast";
+import { ToastAction } from "@/components/ui/toast";
 
-const CostBlockForm = () => {
+const CostBlockForm = ({ calculationId }: { calculationId: string }) => {
   const [dialogForm, setDialogForm] = useState(false);
   const form = useForm<z.infer<typeof costBlockSchema>>({
     resolver: zodResolver(costBlockSchema),
@@ -41,12 +43,39 @@ const CostBlockForm = () => {
 
   const addItem = useCostBlockStore((state) => state.add);
   const items = useCostBlockStore((state) => state.items);
+  const { toast } = useToast();
 
   async function onSubmit(values: z.infer<typeof costBlockSchema>) {
-    // Add to store
-    values.id = Math.random().toString(36).substr(2, 9);
+    try {
+      const response = await fetch("/api/costblock", {
+        method: "POST",
+        body: JSON.stringify({
+          ...values,
+          calculationId: calculationId,
+        }),
+      });
 
-    addItem(values);
+      if (!response.ok) throw new Error("Something went wrong");
+
+      const costBlock = await response.json();
+
+      // Add to store
+      values.id = costBlock.id;
+
+      addItem(values);
+
+      toast({
+        title: "Calculation successful",
+        description: "Your calculation was successful.",
+      });
+    } catch (e) {
+      toast({
+        title: "Something went wrong",
+        description: "Please try again later.",
+        variant: "destructive",
+        action: <ToastAction altText="Try again">Try again</ToastAction>,
+      });
+    }
 
     // Reset form
     setDialogForm(false);
