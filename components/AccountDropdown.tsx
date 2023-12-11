@@ -42,7 +42,7 @@ export function AccountDropdown({
             <p>
               <span className="font-bold">POST</span>{" "}
               <span className="font-light">
-                https://viadukt.fly.dev/api/jsonlogic
+                https://viadukt-wild-glitter-283.fly.dev/api/calculation
               </span>
             </p>
 
@@ -58,14 +58,18 @@ export function AccountDropdown({
                 <Label htmlFor="json">JSON Example:</Label>
                 <Textarea
                   value={`{
-  "home_size": 1200,
-  "upgrade_costs": 10000,
-  "current_energy_consumption": 15000,
-  "energy_price": 0.12,
-  "energy_savings_percentage": 0.2,
-  "incentives": 2000,
-  "selected_upgrade": "solar panels",
-}`}
+  "data": [
+    {
+      "name": "a",
+      "value": 21
+    },
+    {
+      "name": "b",
+      "value": 193
+    }
+  ]
+}
+`}
                   id="json"
                   className="resize-none"
                   cols={30}
@@ -77,10 +81,8 @@ export function AccountDropdown({
                 <Label htmlFor="response">Response:</Label>
                 <Textarea
                   value={`{
-  "totalCost": 12000000,
-  "annualSavings": -4320,
-  "netCost": 11998000,
-  "returnOnInvestment": 2777.314814814815
+  "type": "JsonLogic: Addition",
+  "result": 214
 }`}
                   id="response"
                   className="resize-none"

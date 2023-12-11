@@ -56,6 +56,7 @@ model Calculation {
   updatedAt        DateTime    @updatedAt
   user_id          String
   type             String
+  schema           String
   user             User        @relation(fields: [user_id], references: [id], onDelete: Cascade)
   costBlocks       CostBlock[]
 

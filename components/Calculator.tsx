@@ -15,6 +15,8 @@ import {
 import CostBlockForm from "@/components/CostBlockForm";
 import { useCostBlockStore } from "@/store/zustand";
 import { Button } from "@/components/ui/button";
+import { calculationSchema } from "@/lib/validationSchema";
+import * as z from "zod";
 
 interface ContainerItems {
   [key: string]: string[];
@@ -24,7 +26,11 @@ interface ContainerItems {
 
 const operators = ["+", "-", "*", "/"];
 
-const Calculator = () => {
+const Calculator = ({
+  calculation,
+}: {
+  calculation: z.infer<typeof calculationSchema>;
+}) => {
   const containers = ["A", "-", "B"];
   const [parent, setParent] = useState(null);
   const [containerItems, setContainerItems] = useState<ContainerItems>({
@@ -33,6 +39,8 @@ const Calculator = () => {
   });
 
   const [selectedOperator, setSelectedOperator] = useState<string>("+");
+  const [saving, setSaving] = useState(false);
+
   const items = useCostBlockStore((state) => state.items);
   const removeAll = useCostBlockStore((state) => state.removeAll);
 
@@ -88,6 +96,58 @@ const Calculator = () => {
     setResult(0);
   };
 
+  const handleSave = () => {
+    setSaving(true);
+
+    if (items.length === 0) return;
+
+    // Simulate a saving process with a delay
+    setTimeout(async () => {
+      // Perform actual save logic here
+
+      // Remove ids from items and use from calculation schema
+      // const itemsWithoutId = items.map((item) => {
+      //   const { id, ...rest } = item;
+      //   return rest;
+      // });
+
+      // const itemsWithoutId = items.map((item) => {
+      //   calculation?.costBlocks.forEach((costBloc) => {
+      //     item.id = costBloc.id;
+      //     item.name = item.name;
+      //     item.value = item.value;
+      //     item.description = item.description;
+      //   });
+
+      //   return rest;
+      // });
+
+      // try {
+      //   const res = await fetch("/api/calc", {
+      //     method: "PATCH",
+      //     body: JSON.stringify({
+      //       id: calculation.id,
+      //       schema: JSON.stringify(containerItems),
+      //       selectedOperator,
+      //       costBlocks: JSON.stringify(itemsWithoutId),
+      //       result: +result,
+      //     }),
+      //   });
+      //   const data = await res.json();
+      //   console.log(data);
+      // } catch (e) {
+      //   console.log(e);
+      // }
+      // After saving is done, set `saving` to false
+      setSaving(false);
+    }, 2000); // 2 seconds delay
+  };
+
+  useEffect(() => {
+    // Call the save function whenever relevant data changes
+    handleSave();
+  }, [containerItems, selectedOperator, items]);
+
   useEffect(() => {
     // Calculate the result using the selected operator
     let result = 0;
@@ -120,8 +180,6 @@ const Calculator = () => {
 
     const newResult = result.toFixed(2) as unknown as number;
 
-    console.log({ items, containerItems, selectedOperator, result });
-
     setResult(newResult);
   }, [containerItems, selectedOperator, items]);
 
@@ -132,6 +190,12 @@ const Calculator = () => {
 
         {items.length > 0 && (
           <>
+            {saving ? (
+              <p className="absolute  right-5">Saving...</p>
+            ) : (
+              <p className="absolute  right-5">Saved</p>
+            )}
+
             <div className="flex flex-col flex-1  w-full   rounded-lg bg-slate-300 ">
               <h3 className="text-4xl font-bold bg-slate-400 text-white text-right rounded-t-lg p-5">
                 {result}

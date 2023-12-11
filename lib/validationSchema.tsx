@@ -1,16 +1,18 @@
 import * as z from "zod";
 
+export const costBlockSchema = z.object({
+  name: z.string(),
+  description: z.string().optional(),
+  value: z.number().min(1).multipleOf(0.01),
+  id: z.string(),
+});
+
 export const calculationSchema = z.object({
   result: z.number().min(1).multipleOf(0.01),
   name: z.string(),
   type: z.string(),
   selectedOperator: z.string(),
-  id: z.string(),
-});
-
-export const costBlockSchema = z.object({
-  name: z.string(),
-  description: z.string().optional(),
-  value: z.number().min(1).multipleOf(0.01),
+  schema: z.string(),
+  costBlocks: z.array(costBlockSchema).optional(),
   id: z.string(),
 });

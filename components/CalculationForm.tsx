@@ -43,7 +43,11 @@ function CalculationForm({ userId }: { userId: string }) {
       result: 2,
       type: "",
       selectedOperator: "",
-      id: "",
+      schema: JSON.stringify({
+        A: [],
+        B: [],
+      }),
+      id: 1,
     },
   });
 

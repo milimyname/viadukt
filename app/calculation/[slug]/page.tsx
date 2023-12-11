@@ -1,12 +1,20 @@
 import { getPageSession } from "@/lib/getSession";
 import { redirect } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import CalculationForm from "@/components/CalculationForm";
 import Calculator from "@/components/Calculator";
+import prisma from "@/prisma/client";
 
 const Page = async ({ params }: { params: { slug: string } }) => {
   const session = await getPageSession();
   if (!session) redirect("/login");
+
+  // Get the current calculation
+  const calculation = await prisma.calculation.findUnique({
+    where: { id: +params.slug },
+    include: { costBlocks: true },
+  });
+
+  if (!calculation) redirect("/");
 
   return (
     <>
@@ -16,9 +24,7 @@ const Page = async ({ params }: { params: { slug: string } }) => {
         userId={session.user.userId}
       />
       <main className="p-10 flex w-full justify-center gap-20 sm:px-0">
-        {/* <CalculationForm userId={session.user.userId} /> */}
-
-        <Calculator />
+        <Calculator calculation={calculation} />
       </main>
     </>
   );
