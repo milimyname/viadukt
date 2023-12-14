@@ -1,7 +1,7 @@
 import { getPageSession } from "@/lib/getSession";
 import { redirect } from "next/navigation";
 import Navbar from "@/components/Navbar";
-import CalculationForm from "@/components/CalculationForm";
+import TremorCard from "@/components/TremorCard";
 
 const Page = async () => {
   const session = await getPageSession();
@@ -14,7 +14,8 @@ const Page = async () => {
         avatar_url={session.user.avatar_url}
       />
       <main className="p-10 flex w-full justify-center gap-20 sm:px-0">
-        <CalculationForm userId={session.user.userId} />
+        {/* <CalculationForm userId={session.user.userId} /> */}
+        <TremorCard />
       </main>
     </>
   );

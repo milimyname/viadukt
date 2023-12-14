@@ -1,6 +1,7 @@
 import Link from "next/link";
-import { CustomSheet } from "@/components/CustomSheet";
+// import { CustomSheet } from "@/components/CustomSheet";
 import { AccountDropdown } from "@/components/AccountDropdown";
+import { ModeToggle } from "@/components/ModeToggle";
 
 const Navbar = ({
   username,
@@ -21,7 +22,7 @@ const Navbar = ({
   return (
     <header className="flex h-20 px-8 py-2 items-center justify-between border-b">
       <div className="flex gap-5">
-        <CustomSheet userId={userId} />
+        {/* <CustomSheet userId={userId} /> */}
         <ul className=" sm:gap-4 hidden sm:flex sm:items-center">
           {links.map(({ href, label }) => (
             <li key={`${href}${label}`}>
@@ -32,6 +33,8 @@ const Navbar = ({
           ))}
         </ul>
       </div>
+
+      <ModeToggle />
 
       <AccountDropdown username={username} avatar_url={avatar_url} />
     </header>
