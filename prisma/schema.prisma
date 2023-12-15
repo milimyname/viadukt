@@ -9,11 +9,12 @@ datasource db {
 }
 
 model User {
-  id           String    @id @unique
+  id           String     @id @unique
   username     String
   avatar_url   String?
   key          Key[]
   auth_session Session[]
+  Building     Building[]
 }
 
 model Session {
@@ -33,4 +34,21 @@ model Key {
   user            User    @relation(fields: [user_id], references: [id], onDelete: Cascade)
 
   @@index([user_id])
+}
+
+model Building {
+  id                          Int      @id @default(autoincrement())
+  name                        String   @default("Untitled Building")
+  upgrade_type                String   @default("Basic")
+  upgrade_date                DateTime
+  upgraded_energy_consumption Float
+  energy_savings_percentage   Float
+  projected_annual_savings    Float
+  current_energy_price        Float
+  current_energy_consumption  Float
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  User      User?    @relation(fields: [userId], references: [id])
+  userId    String?
 }
