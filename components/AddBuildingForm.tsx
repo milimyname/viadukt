@@ -116,7 +116,7 @@ function AddBuildingForm({ userId }: { userId: string | undefined }) {
           />
         </Button>
       </SheetTrigger>
-      <SheetContent side="left">
+      <SheetContent side="left" className="w-full xm:w-max">
         <SheetHeader>
           <SheetTitle>Add a new building</SheetTitle>
         </SheetHeader>
@@ -124,7 +124,7 @@ function AddBuildingForm({ userId }: { userId: string | undefined }) {
           <Form {...form}>
             <form
               onSubmit={(event) => onSubmit(form.getValues(), event)}
-              className="space-y-8 w-80 mx-auto">
+              className="space-y-8 w-60 xm:w-80 mx-auto">
               <FormField
                 control={form.control}
                 name="name"

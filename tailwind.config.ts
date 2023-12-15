@@ -35,6 +35,7 @@ const config: Config = {
             DEFAULT: "#ffffff", // white
             emphasis: "#374151", // gray-700
           },
+
           border: {
             DEFAULT: "#e5e7eb", // gray-200
           },
@@ -157,6 +158,9 @@ const config: Config = {
         "tremor-title": ["1.4rem", { lineHeight: "1.75rem" }],
         "tremor-metric": ["1.875rem", { lineHeight: "2.25rem" }],
         "tremor-label": ["0.75rem", { lineHeight: "1rem" }],
+      },
+      screens: {
+        xm: "400px",
       },
     },
   },

@@ -86,8 +86,10 @@ export function AccountDropdown({
                 <Label htmlFor="response">Response:</Label>
                 <Textarea
                   value={`{
-  "type": "JsonLogic: Addition",
-  "result": 214
+  "status": "success",
+  "message": "Calculation successful. Any feedback or suggestions? Please contact me at kj@mili-my.name",
+  "projected_annual_savings": -398352,
+  "energy_savings_percentage": -819.047619047619
 }`}
                   id="response"
                   className="resize-none"
