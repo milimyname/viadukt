@@ -1,5 +1,3 @@
-"use client";
-
 import {
   Card,
   Grid,
@@ -17,27 +15,7 @@ import {
 import AreaChart from "@/components/AreaChart";
 import LineChart from "@/components/LineChart";
 import DatePicker from "@/components/DatePicker";
-
-const categories = [
-  {
-    title: "Current Monthly Energy Usage (kWh)",
-    metric: "$12,699",
-    value: 15.9,
-    target: "$80,000",
-  },
-  {
-    title: "Current Price per kWh (in $/kWh)",
-    metric: "$45,564",
-    value: 36.5,
-    target: "$125,000",
-  },
-  {
-    title: "Buildings",
-    metric: "1,072",
-    value: 53.6,
-    target: "2,000",
-  },
-];
+import prisma from "@/prisma/client";
 
 const data = [
   {
@@ -70,7 +48,38 @@ function sumArray(array: any[], metric: string | number) {
   );
 }
 
-export default function Dashboard() {
+export default async function Dashboard() {
+  const buildingSumAggregation = await prisma.building.aggregate({
+    _sum: {
+      current_energy_consumption: true,
+      current_energy_price: true,
+    },
+  });
+
+  const totalBuildingsCount = await prisma.building.count();
+
+  const categories = [
+    {
+      title: "Current Monthly Energy Usage (kWh)",
+      metric: buildingSumAggregation._sum.current_energy_consumption ?? 0,
+      value:
+        (buildingSumAggregation._sum.current_energy_consumption ?? 0) / 2000,
+      target: "200,000",
+    },
+    {
+      title: "Current Price per kWh (in $/kWh)",
+      metric: "$" + (buildingSumAggregation._sum.current_energy_price ?? 0),
+      value: (buildingSumAggregation._sum.current_energy_price ?? 0) / 2250,
+      target: "$225,000",
+    },
+    {
+      title: "Buildings",
+      metric: totalBuildingsCount,
+      value: totalBuildingsCount / 20,
+      target: "2,000",
+    },
+  ];
+
   return (
     <div className="px-8 w-full ">
       <div className="flex">
@@ -80,6 +89,7 @@ export default function Dashboard() {
       <TabGroup className="mt-2">
         <TabList variant="solid" className="mt-2">
           <Tab>Overview</Tab>
+          <Tab disabled>Buildings</Tab>
           <Tab disabled>Analytics</Tab>
         </TabList>
         <TabPanels>

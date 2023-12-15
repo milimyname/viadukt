@@ -11,6 +11,25 @@ export const fontSans = FontSans({
   variable: "--font-sans",
 });
 
+// Function to calculate energy savings percentage
+export function calculateEnergySavingsPercentage(
+  currentConsumption: number,
+  upgradedConsumption: number
+) {
+  return (
+    ((currentConsumption - upgradedConsumption) / currentConsumption) * 100
+  );
+}
+
+// Function to calculate projected annual savings
+export function calculateProjectedAnnualSavings(
+  currentConsumption: number,
+  upgradedConsumption: number,
+  energyPrice: number
+) {
+  return (currentConsumption - upgradedConsumption) * energyPrice * 12;
+}
+
 export const logic = [
   {
     "*": [{ var: "upgrade_costs" }, { var: "home_size" }],

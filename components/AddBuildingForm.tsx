@@ -31,7 +31,7 @@ import {
 } from "@/components/ui/form";
 import { useState } from "react";
 
-export function CustomSheet({ userId }: { userId: string | undefined }) {
+function AddBuildingForm({ userId }: { userId: string | undefined }) {
   // 1. Define your form.
   const form = useForm<z.infer<typeof buildingSchema>>({
     resolver: zodResolver(buildingSchema),
@@ -56,25 +56,23 @@ export function CustomSheet({ userId }: { userId: string | undefined }) {
     event.preventDefault();
 
     try {
-      const validation = buildingSchema.parse(values);
+      // Validate the form values.
+      await buildingSchema.parseAsync(values);
 
-      // const response = await fetch("/api/calc", {
-      //   method: "POST",
-      //   body: JSON.stringify({
-      //     ...values,
-      //     user_id: userId,
-      //   }),
-      // });
+      const response = await fetch("/api/building", {
+        method: "POST",
+        body: JSON.stringify({
+          ...values,
+          user_id: userId,
+        }),
+      });
 
-      // if (!response.ok) throw new Error("Something went wrong");
+      if (!response.ok) throw new Error("Something went wrong");
 
-      // const calculation = await response.json();
-
-      console.log(values);
-
+      // Reset the form state.
       setSheetForm(false);
-
       form.reset();
+
       toast({
         title: "Added successful",
         description: "See your new building in the graph.",
@@ -217,3 +215,5 @@ export function CustomSheet({ userId }: { userId: string | undefined }) {
     </Sheet>
   );
 }
+
+export default AddBuildingForm;
