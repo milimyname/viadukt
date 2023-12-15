@@ -34,9 +34,10 @@ const Navbar = ({
         </ul>
       </div>
 
-      <ModeToggle />
-
-      <AccountDropdown username={username} avatar_url={avatar_url} />
+      <div className="flex items-center gap-5">
+        <AccountDropdown username={username} avatar_url={avatar_url} />
+        <ModeToggle />
+      </div>
     </header>
   );
 };
