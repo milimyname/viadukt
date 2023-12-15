@@ -80,6 +80,13 @@ export default async function Dashboard() {
     },
   ];
 
+  // Perform the initial query to get buildings
+  const buildings = await prisma.building.findMany({
+    select: {
+      createdAt: true,
+    },
+  });
+
   return (
     <div className="px-8 w-full ">
       <div className="flex">
@@ -109,8 +116,8 @@ export default async function Dashboard() {
             </Grid>
             <div className="mt-6">
               <Card>
-                <Title>Export/Import Growth Rates (1970 to 2021)</Title>
-                <LineChart />
+                <Title>Number of Buildings Constructed Annually</Title>
+                <LineChart buildings={buildings} />
               </Card>
             </div>
           </TabPanel>

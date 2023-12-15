@@ -2,40 +2,39 @@
 
 import { LineChart as TremorLineChart } from "@tremor/react";
 
-const chartdata = [
-  {
-    year: 1970,
-    "Export Growth Rate": 2.04,
-  },
-  {
-    year: 1971,
-    "Export Growth Rate": 1.96,
-  },
-  {
-    year: 1972,
-    "Export Growth Rate": 1.96,
-  },
-  {
-    year: 1973,
-    "Export Growth Rate": 1.93,
-  },
-  {
-    year: 1974,
-    "Export Growth Rate": 1.88,
-  },
-  //...
-];
-
 const valueFormatter = (number: number) =>
-  `$ ${new Intl.NumberFormat("us").format(number).toString()}`;
+  `${new Intl.NumberFormat("us").format(number).toString()}`;
 
-const LineChart = () => {
+const LineChart = ({
+  buildings,
+}: {
+  buildings: {
+    createdAt: Date;
+  }[];
+}) => {
+  // Count the number of buildings per year
+  const countPerYear = buildings.reduce<Record<number, number>>(
+    (acc, building) => {
+      const year = building.createdAt.getFullYear();
+      if (!acc[year]) acc[year] = 0;
+      acc[year] += 1;
+      return acc;
+    },
+    {}
+  );
+
+  // Convert the counts into the chart data format
+  const chartData = Object.entries(countPerYear).map(([year, count]) => ({
+    year: parseInt(year),
+    Buildings: count,
+  }));
+
   return (
     <TremorLineChart
       className="mt-6 h-96"
-      data={chartdata}
+      data={chartData}
       index="year"
-      categories={["Export Growth Rate"]}
+      categories={["Buildings"]}
       colors={["blue"]}
       valueFormatter={valueFormatter}
       yAxisWidth={40}
