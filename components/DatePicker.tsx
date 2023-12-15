@@ -14,7 +14,7 @@ const DatePicker = () => {
 
   return (
     <DateRangePicker
-      className="max-w-md ml-auto sm:block hidden"
+      className="max-w-md ml-auto sm:flex hidden"
       value={value}
       onValueChange={setValue}
       maxDate={new Date()}
