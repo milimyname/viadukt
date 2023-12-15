@@ -30,6 +30,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 
 function AddBuildingForm({ userId }: { userId: string | undefined }) {
   // 1. Define your form.
@@ -47,6 +48,8 @@ function AddBuildingForm({ userId }: { userId: string | undefined }) {
   const [sheetForm, setSheetForm] = useState(false);
 
   const { toast } = useToast();
+
+  const router = useRouter();
 
   // 2. Define a submit handler.
   async function onSubmit(
@@ -77,6 +80,9 @@ function AddBuildingForm({ userId }: { userId: string | undefined }) {
         title: "Added successful",
         description: "See your new building in the graph.",
       });
+
+      // Revalidate the data on the current page
+      router.refresh();
     } catch (e) {
       // Set the error state to display the error message to the user.
       const errors = JSON.parse((e as any).message);
