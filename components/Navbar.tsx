@@ -1,5 +1,5 @@
 import Link from "next/link";
-// import { CustomSheet } from "@/components/CustomSheet";
+import { CustomSheet } from "@/components/CustomSheet";
 import { AccountDropdown } from "@/components/AccountDropdown";
 import { ModeToggle } from "@/components/ModeToggle";
 
@@ -22,11 +22,14 @@ const Navbar = ({
   return (
     <header className="flex h-20 px-8 py-2 items-center justify-between border-b">
       <div className="flex gap-5">
-        {/* <CustomSheet userId={userId} /> */}
+        <CustomSheet userId={userId} />
         <ul className=" sm:gap-4 hidden sm:flex sm:items-center">
           {links.map(({ href, label }) => (
             <li key={`${href}${label}`}>
-              <Link href={href} className="text-gray-600 hover:text-gray-600">
+              <Link
+                href={href}
+                className={`text-gray-600 hover:text-gray-600 
+                ${label === "Overview" && "text-gray-800 font-medium"}`}>
                 {label}
               </Link>
             </li>

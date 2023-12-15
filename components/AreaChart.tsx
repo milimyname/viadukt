@@ -26,13 +26,6 @@ const percentageFormatter = (value: number) =>
     .format(value * 100)
     .toString()}%`;
 
-function sumArray(array: any[], metric: string | number) {
-  return array.reduce(
-    (accumulator, currentValue) => accumulator + currentValue[metric],
-    0
-  );
-}
-
 const LineChart = ({ categories }: { categories: string }) => {
   return (
     <AreaChart

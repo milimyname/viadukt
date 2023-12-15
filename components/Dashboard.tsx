@@ -13,26 +13,26 @@ import {
   Flex,
   Metric,
   ProgressBar,
-  Subtitle,
 } from "@tremor/react";
-import BarChart from "@/components/BarChart";
 import AreaChart from "@/components/AreaChart";
+import LineChart from "@/components/LineChart";
+import DatePicker from "@/components/DatePicker";
 
 const categories = [
   {
-    title: "Sales",
-    metric: "$ 12,699",
+    title: "Current Monthly Energy Usage (kWh)",
+    metric: "$12,699",
     value: 15.9,
-    target: "$ 80,000",
+    target: "$80,000",
   },
   {
-    title: "Profit",
-    metric: "$ 45,564",
+    title: "Current Price per kWh (in $/kWh)",
+    metric: "$45,564",
     value: 36.5,
-    target: "$ 125,000",
+    target: "$125,000",
   },
   {
-    title: "Customers",
+    title: "Buildings",
     metric: "1,072",
     value: 53.6,
     target: "2,000",
@@ -70,14 +70,17 @@ function sumArray(array: any[], metric: string | number) {
   );
 }
 
-export default function Example() {
+export default function Dashboard() {
   return (
     <div className="px-8 w-full ">
-      <Title>Dashboard</Title>
+      <div className="flex">
+        <Title>Dashboard</Title>
+        <DatePicker />
+      </div>
       <TabGroup className="mt-2">
         <TabList variant="solid" className="mt-2">
           <Tab>Overview</Tab>
-          <Tab>Analytics</Tab>
+          <Tab disabled>Analytics</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -95,15 +98,9 @@ export default function Example() {
               ))}
             </Grid>
             <div className="mt-6">
-              <Card className="">
-                <Title>
-                  Number of species threatened with extinction (2021)
-                </Title>
-                <Subtitle>
-                  The IUCN Red List has assessed only a small share of the total
-                  known species in the world.
-                </Subtitle>
-                <BarChart />
+              <Card>
+                <Title>Export/Import Growth Rates (1970 to 2021)</Title>
+                <LineChart />
               </Card>
             </div>
           </TabPanel>
