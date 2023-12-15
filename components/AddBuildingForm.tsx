@@ -105,7 +105,7 @@ function AddBuildingForm({ userId }: { userId: string | undefined }) {
             icon={PlusIcon}
             color="blue"
             variant="solid"
-            tooltip="Add a new home"
+            tooltip="Add a new building"
             size="sm"
           />
         </Button>
