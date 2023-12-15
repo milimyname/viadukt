@@ -8,3 +8,14 @@ export const buildingSchema = z.object({
   current_energy_price: z.number().min(1).multipleOf(0.01),
   current_energy_consumption: z.number().min(1).multipleOf(0.01),
 });
+
+export const apiBuildingSchema = z.object({
+  data: z
+    .array(
+      z.object({
+        name: z.string(),
+        value: z.number(),
+      })
+    )
+    .length(3),
+});

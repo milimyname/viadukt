@@ -42,7 +42,7 @@ export function AccountDropdown({
             <p>
               <span className="font-bold">POST</span>{" "}
               <span className="font-light">
-                https://viadukt-wild-glitter-283.fly.dev/api/calculation
+                https://viadukt-wild-forest-3032.fly.dev/api/calculation
               </span>
             </p>
 
@@ -60,15 +60,20 @@ export function AccountDropdown({
                   value={`{
   "data": [
     {
-      "name": "a",
+      "name": "current_energy_consumption",
       "value": 21
     },
     {
-      "name": "b",
+      "name": "upgraded_energy_consumption",
+      "value": 193
+    },
+    {
+      "name": "current_energy_price",
       "value": 193
     }
   ]
 }
+
 `}
                   id="json"
                   className="resize-none"
