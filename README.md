@@ -4,6 +4,38 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 [Viadukt Dashboard](https://viadukt-wild-forest-3032.fly.dev/)
 
+## Environment Variables
+
+To run this project, you will need to add the following environment variables to your .env from the .env.example file
+
+if you don't wanna use the pooling feature or your db provider doesn't support it.
+
+1. Please modify the schema prisma with the following:
+
+```bash
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+```
+
+2. Run the following command to generate the prisma client
+
+```bash
+npx prisma generate
+# or
+yarn prisma generate
+# or
+pnpm prisma generate
+# or
+bun prisma generate
+```
+
+3. Don't forget to include the Github OAuth App credentials in the .env file!
+
+
 ## Getting Started
 
 First, run the development server:
